@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Stock Portfolio Tracker Pro</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 28px 7%;
+            background: linear-gradient(135deg, #172554, #1e3a8a, #312e81);
+            border-bottom: 1px solid #334155;
+        }
+
+        header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #bfdbfe;
+        }
+
+        .container {
+            width: 86%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #172033;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+        }
+
+        .stat-title {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .green {
+            color: #4ade80;
+        }
+
+        .blue {
+            color: #60a5fa;
+        }
+
+        .purple {
+            color: #a78bfa;
+        }
+
+        .yellow {
+            color: #fbbf24;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 22px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: white;
+            outline: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            color: #94a3b8;
+            font-size: 13px;
+            padding: 13px;
+            border-bottom: 1px solid #334155;
+        }
+
+        td {
+            padding: 15px 13px;
+            border-bottom: 1px solid #263449;
+        }
+
+        tr:hover {
+            background: #1e293b;
+        }
+
+        .ticker {
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .chart-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0 25px;
+        }
+
+        .donut {
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #60a5fa 0deg 147deg,
+                #a78bfa 147deg 360deg
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .donut-inner {
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            background: #172033;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 8px;
+            background: #1e293b;
+        }
+
+        .badge {
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #1d4ed8;
+            color: white;
+            font-size: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 35px;
+            color: #64748b;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 11px 16px;
+            border-radius: 9px;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+
+        .button.secondary {
+            background: #334155;
+        }
+
+        @media(max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📈 Stock Portfolio Tracker Pro</h1>
+    <p>Professional Portfolio Management Dashboard</p>
+</header>
+
+<div class="container">
+
+    <div class="stats">
+
+        <div class="card">
+            <div class="stat-title">TOTAL INVESTMENT</div>
+            <div class="stat-value green">$3,050.00</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">HOLDINGS</div>
+            <div class="stat-value blue">2</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">TOTAL SHARES</div>
+            <div class="stat-value purple">15</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">AVG. HOLDING</div>
+            <div class="stat-value yellow">$1,525.00</div>
+        </div>
+
+    </div>
+
+    <div class="main-grid">
+
+        <div class="card">
+
+            <div class="toolbar">
+                <h2 class="section-title">Your Holdings</h2>
+
+                <input
+                    id="search"
+                    type="text"
+                    placeholder="🔎 Search stock..."
+                    onkeyup="filterStocks()"
+                >
+            </div>
+
+            <table id="stockTable">
+
+                <thead>
+                    <tr>
+                        <th>Stock</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Investment</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="ticker">AAPL</td>
+                        <td>10</td>
+                        <td>$180.00</td>
+                        <td>$1,800.00</td>
+                        <td><span class="badge">59.02%</span></td>
+                    </tr>
+
+                    <tr>
+                        <td class="ticker">TSLA</td>
+                        <td>5</td>
+                        <td>$250.00</td>
+                        <td>$1,250.00</td>
+                        <td><span class="badge">40.98%</span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="buttons">
+                <a class="button" href="portfolio.py">
+                    🐍 View Python Source
+                </a>
+
+                <a class="button secondary" href="README.md">
+                    📖 Documentation
+                </a>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2 class="section-title">Portfolio Allocation</h2>
+
+            <div class="chart-area">
+                <div class="donut">
+                    <div class="donut-inner">
+                        $3,050<br>
+                        Total
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend">
+
+                <div class="legend-item">
+                    <span>🔵 AAPL</span>
+                    <strong>59.02%</strong>
+                </div>
+
+                <div class="legend-item">
+                    <span>🟣 TSLA</span>
+                    <strong>40.98%</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    Stock Portfolio Tracker Pro • CodeAlpha Project
+</div>
+
+<script>
+function filterStocks() {
+
+    const input = document
+        .getElementById("search")
+        .value
+        .toUpperCase();
+
+    const rows = document
+        .getElementById("stockTable")
+        .getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+
+        const ticker = rows[i]
+            .getElementsByTagName("td")[0];
+
+        if (!ticker) continue;
+
+        const text = ticker.textContent.toUpperCase();
+
+        rows[i].style.display =
+            text.includes(input) ? "" : "none";
+    }
+}
+</script>
+
+</body>
+</html>
